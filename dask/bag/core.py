@@ -1352,7 +1352,7 @@ class Bag(DaskMethodsMixin):
             split_every = self.npartitions
 
         token = tokenize(self, key, binop, initial, combine, combine_initial)
-        a = "foldby-a-" + token
+        a = f"foldby-a-{token}"
         if combine is None:
             combine = binop
         if initial is not no_default:
@@ -1393,7 +1393,7 @@ class Bag(DaskMethodsMixin):
             b = c
             depth += 1
 
-        e = "foldby-b-" + token
+        e = f"foldby-b-{token}"
         if combine_initial is not no_default:
             dsk[(e, 0)] = (
                 dictitems,
@@ -1446,10 +1446,10 @@ class Bag(DaskMethodsMixin):
             )
 
         token = tokenize(self, k, npartitions)
-        name = "take-" + token
+        name = f"take-{token}"
 
         if npartitions > 1:
-            name_p = "take-partial-" + token
+            name_p = f"take-partial-{token}"
 
             dsk = {}
             for i in range(npartitions):

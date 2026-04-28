@@ -779,7 +779,7 @@ Expr={expr}"""
             expr.Isin(
                 self,
                 values=expr._DelayedExpr(
-                    delayed(values, name="delayed-" + _tokenize_deterministic(values))
+                    delayed(values, name=f"delayed-{_tokenize_deterministic(values)}")
                 ),
             )
         )

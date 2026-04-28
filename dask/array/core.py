@@ -5878,7 +5878,7 @@ def _vindex_array(x, dict_indexes):
         for c in _subset_to_indexed_axes(x.chunks)
     )
     axis = _get_axis(tuple(i if i in axes else None for i in range(x.ndim)))
-    out_name = "vindex-merge-" + token
+    out_name = f"vindex-merge-{token}"
 
     # Now compute indices of each output element within each input block
     # The index is relative to the block, not the array.
@@ -5955,8 +5955,8 @@ def _vindex_array(x, dict_indexes):
         flag = np.concatenate([[True], sorted_keys[1:] != sorted_keys[:-1], [True]])
         (key_bounds,) = flag.nonzero()
 
-        name = "vindex-slice-" + token
-        vindex_merge_name = "vindex-merge-" + token
+        name = f"vindex-slice-{token}"
+        vindex_merge_name = f"vindex-merge-{token}"
         dsk = {}
         for okey in other_blocks:
             merge_inputs = defaultdict(list)

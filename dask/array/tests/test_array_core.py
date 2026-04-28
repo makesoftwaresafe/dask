@@ -3814,9 +3814,9 @@ def test_to_delayed_optimize_graph():
     d = y.to_delayed().flatten().tolist()[0]
     assert len([k for k in d.dask if k[0].startswith("getitem")]) == 1
     assert d.key == (y.name, 0, 0)
-    assert d.dask.layers.keys() == {"delayed-" + y.name}
-    assert d.dask.dependencies == {"delayed-" + y.name: set()}
-    assert d.__dask_layers__() == ("delayed-" + y.name,)
+    assert d.dask.layers.keys() == {f"delayed-{y.name}"}
+    assert d.dask.dependencies == {f"delayed-{y.name}": set()}
+    assert d.__dask_layers__() == (f"delayed-{y.name}",)
 
     # no optimizations
     d2 = y.to_delayed(optimize_graph=False).flatten().tolist()[0]

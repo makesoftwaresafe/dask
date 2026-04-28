@@ -261,7 +261,7 @@ class FromMap(PartitionsFiltered, BlockwiseIO):
         if self.label is None:
             return funcname(self.func).lower() + "-" + self.deterministic_token
         else:
-            return self.label + "-" + self.deterministic_token
+            return f"{self.label}-{self.deterministic_token}"
 
     @functools.cached_property
     def _meta(self):
@@ -570,7 +570,7 @@ class FromPandasDivisions(FromPandas):
 
     @functools.cached_property
     def _name(self):
-        return "from_pd_divs" + "-" + self.deterministic_token
+        return f"from_pd_divs-{self.deterministic_token}"
 
     @property
     def _divisions_and_locations(self):
