@@ -1301,5 +1301,6 @@ def clone_key(key: KeyOrStrT, seed: Hashable) -> KeyOrStrT:
         return (clone_key(key[0], seed),) + key[1:]
     if isinstance(key, str):
         prefix = key_split(key)
-        return prefix + "-" + tokenize(key, seed)
+        token = tokenize(key, seed)
+        return f"{prefix}-{token}"
     raise TypeError(f"Expected str or a tuple starting with str; got {key!r}")
