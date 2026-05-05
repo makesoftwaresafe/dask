@@ -465,8 +465,12 @@ def _check_dask(dsk, check_names=True, check_dtypes=True, result=None, scheduler
             assert isinstance(dsk.columns, pd.Index), type(dsk.columns)
             assert type(dsk._meta) == type(result), type(dsk._meta)
             if check_names:
-                tm.assert_index_equal(dsk.columns, result.columns)
-                tm.assert_index_equal(dsk._meta.columns, result.columns)
+                # Treat RangeIndex and Index as equivalent as long as they express the
+                # same values and have the same dtype
+                tm.assert_index_equal(dsk.columns, result.columns, exact=False)
+                tm.assert_index_equal(dsk._meta.columns, result.columns, exact=False)
+                assert dsk.columns.dtype == result.columns.dtype
+                assert dsk._meta.columns.dtype == result.columns.dtype
             if check_dtypes:
                 assert_dask_dtypes(dsk, result)
             _check_dask(
